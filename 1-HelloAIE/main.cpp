@@ -56,4 +56,8 @@ int main()
 	std::cout << "testing whether that nation, or any nation" << std::endl;
 	std::cout << "so conceived and so dedicated, can long endure." << std::endl;
 	system("pause");
+	
+
+
+
 }
