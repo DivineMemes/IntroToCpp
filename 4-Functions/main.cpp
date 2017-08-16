@@ -157,7 +157,7 @@ int main()
 	int sums = SumThree(add1, add2, add3);
 	cout << sums << endl;
 
-	//lowest number work
+	//min num work
 	int lNum1;
 	int lNum2;
 
@@ -166,11 +166,11 @@ int main()
 	cout << "Enter the 2nd number " << endl;
 	cin >> lNum2;
 
-
-
-	//min function work
 	min(lNum1, lNum2);
-
+	
+	
+	
+	//max num work
 	int mNum1;
 	int mNum2;
 
@@ -179,12 +179,12 @@ int main()
 	cout << "Enter the 2nd number " << endl;
 	cin >> mNum2;
 
-
-
-	//max number work
 	max(mNum1, mNum2);
 
 
+
+
+	//clamp work
 	int cInput;
 	int cMin;
 	int cMax;
@@ -199,7 +199,7 @@ int main()
 	cin >> cInput;
 
 	
-	//clamp work
+	
 	int clamp = Clamp(cMin, cInput, cMax);
 	
 	cout << clamp << endl;
