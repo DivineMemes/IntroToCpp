@@ -13,7 +13,7 @@ void printNumbers(int nums[], int size)
 {
 	for (int i = 0; i < size; i++)
 	{
-		nums[i] = i;
+		//nums[i] = i;
 		cout << nums[i] << endl;
 	}
 }
@@ -97,6 +97,98 @@ int uniqueArray(int numbers[], int size)
 }
 
 
+
+
+//reverse array
+
+ void reverseArray(int numbers[], int size)
+{
+	/*int temp = 0;
+	for (int i = 0; i < size; i++)
+	{
+		for (int j = 8; j > 0; j--)
+		{
+			temp = numbers[j];
+			numbers[i] = temp;
+			cout << numbers[i] << endl;
+		}
+	}*/
+
+
+
+
+	// different method
+	
+	/*for (int i = 0; i < 1; i++)
+	{
+		for (int j = 8; j >= i; j--)
+		{
+			cout << numbers[j] << endl;
+		}
+	}*/
+
+	cout << endl;
+
+	for (int i = 0; i < (size / 2); i++)
+	{
+
+		int temp = numbers[i];
+
+		numbers[i] = numbers[size - 1 - i];
+
+		numbers[size - 1 - i] = temp;
+
+
+		
+
+
+	}
+	printNumbers(numbers, size);
+
+}
+
+
+
+
+ //sorting an array
+
+ void arraySortAscend(int numbers[], int size)
+ {
+
+	 while (true)
+	 {
+		 bool isSorted = true;
+		 for (int i = 0; i < size - 1; i++)
+		 {
+			 if (numbers[i] > numbers[i + 1])
+			 {
+				 int temp = numbers[i];
+
+				 numbers[i] = numbers[i + 1];
+				 numbers[i + 1] = temp;
+				 isSorted = false;
+			 }
+			 cout << numbers[i] << endl;
+			 
+		 }
+		 cout <<" ascending" <<  endl;
+		 if (isSorted)
+		 {
+			 break;
+		}
+	 }
+ }
+ 
+
+
+
+ void arraySortDescend(int numbers[], int size)
+ {
+	 arraySortAscend(numbers, size);
+	 reverseArray(numbers, size);
+	 
+ }
+
 int main()
 {
 	//declare and define integer arrays
@@ -151,21 +243,26 @@ int main()
 	}
 	int bloop[]{ 9, 2, 3, 5, 1, 8, 9, 7 };
 
-	printNumbers(blah, 8);
-	
-	sumNumbers(blah, 8);
+	//printNumbers(blah, 8);
+	//
+	//sumNumbers(blah, 8);
 
-	cout << smallestValue(bloop, 8) << endl;
+	//cout << smallestValue(bloop, 8) << endl;
 
-	cout << largestValue(bloop, 8) << endl;
+	//cout << largestValue(bloop, 8) << endl;
 
-	cin >> input;
+	//cin >> input;
 
-	cout << findIndex(bloop, 8, input) << endl;
+	//cout << findIndex(bloop, 8, input) << endl;
 
-	cout << uniqueArray(bloop, 8);
+	//cout << uniqueArray(bloop, 8) << endl;
 
+	//reverseArray(bloop, 8);
 
+	cout << endl;
 
+	//arraySortAscend(bloop, 8);
+
+	arraySortDescend(bloop, 8);
 	system("pause");
 }
