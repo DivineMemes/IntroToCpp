@@ -133,6 +133,10 @@ void guessTheNumber(int lower, int upper, int trycount)
 			cout << "you did it" << endl;
 
 		}
+		else
+		{
+			cout << "bamboozled boi" << endl;
+		}
 	}
 }
 
