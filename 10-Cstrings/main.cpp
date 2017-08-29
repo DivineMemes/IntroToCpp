@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstring>
 using namespace std;
-
+//
 struct Player
 {
 	char name[80];
@@ -31,30 +31,60 @@ void whiteSpace()
 	}
 
 }
+bool isAlpha(char query)
+{
+	return query >= 'A' && query <= 'Z' ||
+		query >= 'a' && query <= 'z';
+}
+
+char toLower(char query)
+{
+	if (query >= 'A' && query <= 'Z')
+	{
+		query += 'a' - 'A';
+		return query;
+	}
+}
 
 
+
+bool isPalindrome(char string[])
+{
+	int i = 0, j = strlen(string) - 1;
+	do
+	{
+		while (!isAlpha(string[i]) && i < strlen(string)) i++;
+		while (!isAlpha(string[j])) j--;
+
+		if (toLower(string[i]) != toLower(string[j]))
+			return false;
+		i++;
+		j--;
+	} while (j>=0);
+	return true;
+}
+
+//my way
+//\/\/\/\/\/\/\/
 void palindromes()
 {
 	char message[80];
 	char temp[80];
-	
 	cin.getline(message, 80);
 	int length = strlen(message);
 	//char temp[] = "\0";
 	for (int i = 0; i < length; i++)
 	{
-		
-		
-
-
-		
-		temp[i] = message[length - i -1];
-		
+		temp[i] = message[length - i -1];	
 	}
 	temp[length] = message[length];
 	if(strcmp(temp, message ) == 0)
 	{
 		cout << "memes" << endl;
+	}
+	else
+	{
+		cout << "no memes" << endl;
 	}
 		
 }
@@ -65,7 +95,7 @@ void main()
 	//instantiation
 	char cstring[] = "Dinos are cool!";
 	char buffer2[80] = { 0 };
-
+	char myString[80];
 	/*char hWorld[] = "HELLO ";
 
 	char uName[80];
@@ -74,12 +104,14 @@ void main()
 
 	strcat_s(hWorld, 80, uName);
 	cout << hWorld << endl;*/
-
+	cin.getline(myString, 80);
 
 
 
 	//whiteSpace();
-	palindromes();
+
+	isPalindrome(myString);
+	//palindromes();
 	
 	
 	
