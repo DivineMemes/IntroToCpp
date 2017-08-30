@@ -5,6 +5,7 @@ struct Entity
 	int MANA;
 	int DEX;
 	int LUC;
+	int HPMAX;
 };
 
 void battleSequence(Entity &player, Entity &enemy);
