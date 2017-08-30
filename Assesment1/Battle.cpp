@@ -11,14 +11,11 @@ using std::endl;
 
 
 
-
-
-
-//BLACK	0\BLUE	1\GREEN	2\CYAN	3\RED	4\MAGENTA	5\BROWN	6\LIGHTGRAY	7\DARKGRAY	8\LIGHTBLUE	9\LIGHTGREEN	10\LIGHTCYAN	11\LIGHTRED	12\LIGHTMAGENTA	13\YELLOW	14\WHITE	15
 void ColorPicker(int color)
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
 }
+
 void printEntity(Entity target)
 {
 	ColorPicker(12);
@@ -50,18 +47,7 @@ void printStats(Entity player, Entity enemy)
 
 
 //function that gets called after every action and is determined by your luck stat to regen mana for both the enemy and the player
-void pManaRegen(Entity player)
-{
-	int chance = rand() % 20;
-	if (chance <= player.LUC)
-	{
-		player.MANA += 10;
-		ColorPicker(1);
-		cout << "You gained 10 MANA" << endl;
-		ColorPicker(15);
-	}
-}
-void eManaRegen(Entity enemy)
+void eManaRegen(Entity &enemy)
 {
 	int chance = rand() % 20;
 	if (chance <= enemy.LUC)
@@ -72,9 +58,22 @@ void eManaRegen(Entity enemy)
 		ColorPicker(15);
 	}
 }
+void pManaRegen(Entity &player)
+{
+	int chance = rand() % 20;
+	if (chance <= player.LUC)
+	{
+		player.MANA += 25;
+		ColorPicker(11);
+		cout << "You gained 25 MANA" << endl;
+		ColorPicker(15);
+		printEntity(player);
+	}
+}
 
 
-//deals 5 damage for 10 mana
+
+//deals 5 damage for 10 mana | enemy
 void eFireBolt(Entity &player, Entity &enemy, int mana, int damage)
 {
 	damage = 5;
@@ -91,7 +90,7 @@ void pFireBolt(Entity &player, Entity &enemy, int mana, int damage)
 
 //-----------------------------------------------------------
 
-//deals 40 damage for 50 mana
+//deals 40 damage for 50 mana | enemy
 void eLightningBolt(Entity &player, Entity &enemy, int mana, int damage)
 {
 	damage = 40;
@@ -108,7 +107,7 @@ void pLightningBolt(Entity &player, Entity &enemy, int mana, int damage)
 
 //-----------------------------------------------------------
 
-//deals 80 damage for 100 mana
+//deals 80 damage for 100 mana | enemy
 void eArcticRain(Entity &player, Entity &enemy, int mana, int damage)
 {
 	damage = 80;
@@ -125,7 +124,7 @@ void pArcticRain(Entity &player, Entity &enemy, int mana, int damage)
 
 //-----------------------------------------------------------
 
-//random chance to full heal
+//random chance to full heal for enemy
 void eHealingTouch(Entity &enemy, int mana, bool chance)
 {
 	int hChance = rand() % 20 + 1;
@@ -178,6 +177,7 @@ void battleSequence(Entity &player, Entity &enemy)
 	bool enemyTurn = false;
 	bool hChance = NULL;
 	int input = 0;
+	int statpick = 0;
 
 	if (player.DEX > enemy.DEX)
 	{
@@ -199,8 +199,24 @@ void battleSequence(Entity &player, Entity &enemy)
 		{
 			ColorPicker(100);
 			cout << "You WIN" << endl;
-			ColorPicker(15);
-			player.HP = player.HPMAX;
+
+			ColorPicker(64);
+			cout << "LEVEL UP!!!!!!!!!!!!!" << endl;
+
+			cout << "Pick a stat you want to upgrade." << endl;
+
+
+			cout << "press 1 max hp boost\npress 2 for max mana boost\npress 3 for luck increase\npress 4 to increase your dexterity" << endl;
+
+			cin >> statpick;
+			if (statpick == 1)
+			{
+				player.HPMAX += 50;
+			}
+			if (player.HP < player.HPMAX)
+			{
+				player.HP += 1;
+			}
 		}
 		enemyTurn = true;
 	}
@@ -226,9 +242,8 @@ void battleSequence(Entity &player, Entity &enemy)
 					eFireBolt(player, enemy, enemy.MANA, player.HP);
 					pManaRegen(player);
 					eManaRegen(enemy);
-					playerTurn = true;
 					enemyTurn = false;
-
+					playerTurn = true;
 				}
 
 
@@ -241,8 +256,8 @@ void battleSequence(Entity &player, Entity &enemy)
 					eLightningBolt(player, enemy, enemy.MANA, player.HP);
 					pManaRegen(player);
 					eManaRegen(enemy);
-					playerTurn = true;
 					enemyTurn = false;
+					playerTurn = true;
 				}
 			
 				if (moveSel == 3 && enemy.MANA >= 100)
@@ -254,8 +269,8 @@ void battleSequence(Entity &player, Entity &enemy)
 					Sleep(1000);
 					pManaRegen(player);
 					eManaRegen(enemy);
-					playerTurn = true;
 					enemyTurn = false;
+					playerTurn = true;
 				}
 
 				if (moveSel == 4 && enemy.MANA >= 50 && enemy.HP < enemy.HPMAX)
@@ -265,25 +280,21 @@ void battleSequence(Entity &player, Entity &enemy)
 					ColorPicker(15);
 					pManaRegen(player);
 					eManaRegen(enemy);
-					playerTurn = true;
 					enemyTurn = false;
+					playerTurn = true;
 				}
 			}
-
-		}
-		
-		
-		
-		if (playerTurn == true)
-		{		
+		}	
+		if (playerTurn == true && player.MANA >= 10)
+		{
 			printStats(player, enemy);
-			cout << "Choose a spell:\n Firebolt : 10 MANA(press 1)\n Lightning Bolt : 50 MANA(Press 2)\n Arctic Rain : 100 MANA(press 3)\n Healing Touch : 20 MANA(press 4)" << endl;
+			cout << "Choose a spell:\n Firebolt : 10 MANA(press 1)\n Lightning Bolt : 50 MANA(Press 2)\n Arctic Rain : 100 MANA(press 3)\n Healing Touch : 20 MANA(press 4)\n Or Wait for mana to regen (press 5)" << endl;
 			cout << "_____________________________________________" << endl;
 			cout << endl;
 			cout << endl;
-			
+
 			cin >> input;
-		
+
 			if (input == 1 && player.MANA >= 10)
 			{
 				ColorPicker(4);
@@ -320,9 +331,9 @@ void battleSequence(Entity &player, Entity &enemy)
 				eManaRegen(enemy);
 				playerTurn = false;
 				enemyTurn = true;
-				
+
 			}
-			if(input == 2 && player.MANA < 50)
+			if (input == 2 && player.MANA < 50)
 			{
 				ColorPicker(6);
 				cout << "You dont have enough mana for that!" << endl;
@@ -345,8 +356,7 @@ void battleSequence(Entity &player, Entity &enemy)
 				playerTurn = false;
 				enemyTurn = true;
 			}
-
-			if(input == 3 && player.MANA < 100)
+			else if (input == 3 && player.MANA < 100)
 			{
 				ColorPicker(6);
 				cout << "You dont have enough mana for that!" << endl;
@@ -368,8 +378,8 @@ void battleSequence(Entity &player, Entity &enemy)
 				playerTurn = false;
 				enemyTurn = true;
 			}
-			
-			if(input == 4 && player.MANA < 20)
+
+			if (input == 4 && player.MANA < 20)
 			{
 				ColorPicker(6);
 				cout << "You dont have enough mana for that!" << endl;
@@ -377,8 +387,16 @@ void battleSequence(Entity &player, Entity &enemy)
 				Sleep(1000);
 			}
 
+			if (input == 5)
+			{
+				cout << "You decide to wait for your mana to regen" << endl;
+				pManaRegen(player);
+				playerTurn = false;
+				enemyTurn = true;
+			}
 
-			if (player.MANA < 10)
+		}
+		else if (player.MANA < 10)
 			{
 				ColorPicker(6);
 				cout << "You dont have enough mana for anything" << endl;
@@ -389,14 +407,49 @@ void battleSequence(Entity &player, Entity &enemy)
 			}
 			if (enemy.MANA < 10)
 			{
-				playerTurn = true;
-				enemyTurn = false;
 				eManaRegen(enemy);
+				enemyTurn = false;
+				playerTurn = true;
 			}
-		}
-
-		
+			
 	isAlive = player.HP > 0 && enemy.HP > 0;
-
 	}
+			if (player.HP <= 0)
+			{
+				ColorPicker(12);
+				cout << "You Lose" << endl;
+				Sleep(1000);
+				ColorPicker(12);
+				cout << "Good Bye" << endl;
+				Sleep(2000);
+				exit(0);
+			}
+			if (enemy.HP <= 0)
+			{
+				ColorPicker(100);
+				cout << "You WIN" << endl;
+
+				ColorPicker(64);
+				cout << "LEVEL UP!!!!!!!!!!!!!" << endl;
+
+				cout << "Pick a stat you want to upgrade." << endl;
+
+
+				cout << "press 1 max hp boost\npress 2 for max mana boost\npress 3 for luck increase\npress 4 to increase your dexterity" << endl;
+
+				cin >> statpick;
+				if (statpick == 1)
+				{
+					player.HPMAX += 50;
+				}
+				if(statpick == 2)
+				{
+
+				}
+				while (player.HP < player.HPMAX)
+				{
+					player.HP += 1;
+				}
+
+			}
 }
