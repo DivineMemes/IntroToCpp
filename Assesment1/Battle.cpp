@@ -10,7 +10,7 @@ using std::endl;
 
 
 
-
+//BLACK	0\BLUE 1\GREEN 2\CYAN 3\RED 4\MAGENTA 5\BROWN 6\LIGHTGRAY 7\DARKGRAY 8\LIGHTBLUE 9\LIGHTGREEN 10\LIGHTCYAN 11\LIGHTRED 12\LIGHTMAGENTA 13\YELLOW 14\WHITE 15
 void ColorPicker(int color)
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
@@ -53,6 +53,10 @@ void eManaRegen(Entity &enemy)
 	if (chance <= enemy.LUC)
 	{
 		enemy.MANA += 10;
+		if (enemy.MANA > enemy.MANA_MAX)
+		{
+			enemy.MANA = enemy.MANA_MAX;
+		}
 		ColorPicker(1);
 		cout << "You gained 10 MANA" << endl;
 		ColorPicker(15);
@@ -64,10 +68,14 @@ void pManaRegen(Entity &player)
 	if (chance <= player.LUC)
 	{
 		player.MANA += 25;
+		if (player.MANA > player.MANA_MAX)
+		{
+			player.MANA = player.MANA_MAX;
+		}
 		ColorPicker(11);
 		cout << "You gained 25 MANA" << endl;
 		ColorPicker(15);
-		printEntity(player);
+		
 	}
 }
 
@@ -130,7 +138,12 @@ void eHealingTouch(Entity &enemy, int mana, bool chance)
 	int hChance = rand() % 20 + 1;
 	if (hChance <= enemy.LUC)
 	{
+		//enemy.HP_MAX
 		enemy.HP += 100;
+		if (enemy.HP > enemy.HP_MAX)
+		{
+			enemy.HP = enemy.HP_MAX;
+		}
 		chance = true;
 		ColorPicker(14);
 		cout << "The enemy healed for 100 health" << endl;
@@ -153,6 +166,10 @@ void pHealingTouch(Entity &player, int mana, bool chance)
 	if (hChance <= player.LUC)
 	{
 		player.HP += 100;
+		if (player.HP > player.HP_MAX)
+		{
+			player.HP = player.HP_MAX;
+		}
 		chance = true;
 		ColorPicker(14);
 		cout << "You did it! You gain 100 health! dont give up you can do it!" << endl;
@@ -195,29 +212,8 @@ void battleSequence(Entity &player, Entity &enemy)
 	}
 	else if (enemy.DEX > player.DEX)
 	{
-		if (enemy.HP <= 0)
-		{
-			ColorPicker(100);
-			cout << "You WIN" << endl;
-
-			ColorPicker(64);
-			cout << "LEVEL UP!!!!!!!!!!!!!" << endl;
-
-			cout << "Pick a stat you want to upgrade." << endl;
-
-
-			cout << "press 1 max hp boost\npress 2 for max mana boost\npress 3 for luck increase\npress 4 to increase your dexterity" << endl;
-
-			cin >> statpick;
-			if (statpick == 1)
-			{
-				player.HPMAX += 50;
-			}
-			if (player.HP < player.HPMAX)
-			{
-				player.HP += 1;
-			}
-		}
+		ColorPicker(8);
+		cout << "The enemy is faster at spellcasting than you. Watch out!" << endl;
 		enemyTurn = true;
 	}
 
@@ -273,7 +269,7 @@ void battleSequence(Entity &player, Entity &enemy)
 					playerTurn = true;
 				}
 
-				if (moveSel == 4 && enemy.MANA >= 50 && enemy.HP < enemy.HPMAX)
+				if (moveSel == 4 && enemy.MANA >= 50 && enemy.HP < enemy.HP_MAX)
 				{
 					ColorPicker(14);
 					cout << "The enemy tries to heal" << endl;
@@ -284,7 +280,8 @@ void battleSequence(Entity &player, Entity &enemy)
 					playerTurn = true;
 				}
 			}
-		}	
+		}
+
 		if (playerTurn == true && player.MANA >= 10)
 		{
 			printStats(player, enemy);
@@ -431,24 +428,37 @@ void battleSequence(Entity &player, Entity &enemy)
 
 				ColorPicker(64);
 				cout << "LEVEL UP!!!!!!!!!!!!!" << endl;
-
+				ColorPicker(47);
 				cout << "Pick a stat you want to upgrade." << endl;
-
-
-				cout << "press 1 max hp boost\npress 2 for max mana boost\npress 3 for luck increase\npress 4 to increase your dexterity" << endl;
+				ColorPicker(57);
+				cout << "press 1 to increase your maximum HP\npress 2 to increase your maximum MANA\npress 3 to increase your dexterity\npress 4 to increase your luck" << endl;
+				ColorPicker(15);
 
 				cin >> statpick;
 				if (statpick == 1)
 				{
-					player.HPMAX += 50;
+					player.HP_MAX += 50;
 				}
-				if(statpick == 2)
+				if (statpick == 2)
 				{
-
+					player.MANA_MAX += 50;
 				}
-				while (player.HP < player.HPMAX)
+				if (statpick == 3)
+				{
+					player.DEX += 1;
+				}
+				if (statpick == 4)
+				{
+					player.LUC += 1;
+				}
+
+				while (player.HP < player.HP_MAX)
 				{
 					player.HP += 1;
+				}
+				while (player.MANA < player.MANA_MAX)
+				{
+					player.MANA += 1;
 				}
 
 			}
