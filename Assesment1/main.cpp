@@ -16,11 +16,7 @@ int main()
 	//Order of stat's: HP, MANA, DEXTERITY, LUCK, MAX HP, Max Mana
 	Entity Player = { 200, 150, 25, 10, 200, 150 };
 
-	Entity Enemy = { 100, 120, 20, 3, 100, 120 };
-
-	Entity Enemy2 = { 150, 100, 21, 4, 150, 100 };
-
-	Entity Enemy3 = { 200, 150, 26, 6, 200, 150 };
+	Entity Enemy = { 100, 100, 20, 3, 100, 100 };
 	int input = 0;
 	
 	bool returnToMenu = false;
@@ -51,20 +47,16 @@ int main()
 		//make an infinite battle loop next time
 		if (input == 1)
 		{
-			battleSequence(Player, Enemy);
-			
-			ColorPicker(10);
-			cout << "A new wizard materializes!" << endl;
-			
-			battleSequence(Player, Enemy2);
+			bool battle = true;
+			while (battle == true)
+			{
+				battleSequence(Player, Enemy);
 
-			ColorPicker(10);
-			cout << "A new wizard materializes!" << endl;
-
-			battleSequence(Player, Enemy3);
-
-			cout << "There is nothing left for you now good job!\nNow you can play again with the power of magic :D" << endl;
-			Sleep(500);
+				ColorPicker(10);
+				cout << "The wizards grudge is insatiable!" << endl;
+				battle = false;
+				battle = true;
+			}
 			returnToMenu = false;
 		}
 		if (input == 2)

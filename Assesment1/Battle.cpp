@@ -44,7 +44,27 @@ void printStats(Entity player, Entity enemy)
 	cout << "_____________________________________________" << endl;
 	ColorPicker(15);
 }
+void eLevelUp(Entity &enemy)
+{
+	int eStatPick = rand() % 100 + 1;
 
+	if (eStatPick < 25 && eStatPick > 0)
+	{
+		enemy.HP_MAX += 50;
+	}
+	if (eStatPick < 50 && eStatPick > 25)
+	{
+		enemy.MANA_MAX += 50;
+	}
+	if (eStatPick < 75 && eStatPick > 50)
+	{
+		enemy.DEX += 1;
+	}
+	if (eStatPick < 100 && eStatPick > 75)
+	{
+		enemy.LUC += 1;
+	}
+}
 
 //function that gets called after every action and is determined by your luck stat to regen mana for both the enemy and the player
 void eManaRegen(Entity &enemy)
@@ -194,7 +214,8 @@ void battleSequence(Entity &player, Entity &enemy)
 	bool enemyTurn = false;
 	bool hChance = NULL;
 	int input = 0;
-	int statpick = 0;
+	int pStatPick = 0;
+	
 
 	if (player.DEX > enemy.DEX)
 	{
@@ -434,20 +455,20 @@ void battleSequence(Entity &player, Entity &enemy)
 				cout << "press 1 to increase your maximum HP\npress 2 to increase your maximum MANA\npress 3 to increase your dexterity\npress 4 to increase your luck" << endl;
 				ColorPicker(15);
 
-				cin >> statpick;
-				if (statpick == 1)
+				cin >> pStatPick;
+				if (pStatPick == 1)
 				{
 					player.HP_MAX += 50;
 				}
-				if (statpick == 2)
+				if (pStatPick == 2)
 				{
 					player.MANA_MAX += 50;
 				}
-				if (statpick == 3)
+				if (pStatPick == 3)
 				{
 					player.DEX += 1;
 				}
-				if (statpick == 4)
+				if (pStatPick == 4)
 				{
 					player.LUC += 1;
 				}
@@ -460,6 +481,14 @@ void battleSequence(Entity &player, Entity &enemy)
 				{
 					player.MANA += 1;
 				}
-
+				eLevelUp(enemy);
+				while (enemy.HP < enemy.HP_MAX)
+				{
+					enemy.HP += 1;
+				}
+				while (enemy.MANA < enemy.MANA_MAX)
+				{
+					enemy.MANA += 1;
+				}
 			}
 }
