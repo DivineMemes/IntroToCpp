@@ -72,13 +72,13 @@ void eManaRegen(Entity &enemy)
 	int chance = rand() % 20;
 	if (chance <= enemy.LUC)
 	{
-		enemy.MANA += 10;
+		enemy.MANA += 25;
 		if (enemy.MANA > enemy.MANA_MAX)
 		{
 			enemy.MANA = enemy.MANA_MAX;
 		}
 		ColorPicker(1);
-		cout << "You gained 10 MANA" << endl;
+		cout << "The enemy gained 25 MANA" << endl;
 		ColorPicker(15);
 	}
 }
@@ -156,6 +156,7 @@ void pArcticRain(Entity &player, Entity &enemy, int mana, int damage)
 void eHealingTouch(Entity &enemy, int mana, bool chance)
 {
 	int hChance = rand() % 20 + 1;
+
 	if (hChance <= enemy.LUC)
 	{
 		//enemy.HP_MAX
@@ -186,10 +187,6 @@ void pHealingTouch(Entity &player, int mana, bool chance)
 	if (hChance <= player.LUC)
 	{
 		player.HP += 100;
-		if (player.HP > player.HP_MAX)
-		{
-			player.HP = player.HP_MAX;
-		}
 		chance = true;
 		ColorPicker(14);
 		cout << "You did it! You gain 100 health! dont give up you can do it!" << endl;
@@ -217,7 +214,7 @@ void battleSequence(Entity &player, Entity &enemy)
 	int pStatPick = 0;
 	
 
-	if (player.DEX > enemy.DEX)
+	if (player.DEX >= enemy.DEX)
 	{
 		if (player.HP <= 0)
 		{
@@ -263,7 +260,6 @@ void battleSequence(Entity &player, Entity &enemy)
 					playerTurn = true;
 				}
 
-
 				if (moveSel == 2 && enemy.MANA >= 50)
 				{
 					ColorPicker(14);
@@ -292,7 +288,7 @@ void battleSequence(Entity &player, Entity &enemy)
 
 				if (moveSel == 4 && enemy.MANA >= 50 && enemy.HP < enemy.HP_MAX)
 				{
-					ColorPicker(14);
+					ColorPicker(7920);
 					cout << "The enemy tries to heal" << endl;
 					ColorPicker(15);
 					pManaRegen(player);
@@ -416,7 +412,7 @@ void battleSequence(Entity &player, Entity &enemy)
 		}
 		else if (player.MANA < 10)
 			{
-				ColorPicker(6);
+				ColorPicker(7873);
 				cout << "You dont have enough mana for anything" << endl;
 				ColorPicker(15);
 				pManaRegen(player);
@@ -444,14 +440,14 @@ void battleSequence(Entity &player, Entity &enemy)
 			}
 			if (enemy.HP <= 0)
 			{
-				ColorPicker(100);
+				ColorPicker(4779);
 				cout << "You WIN" << endl;
 
-				ColorPicker(64);
+				ColorPicker(7855);
 				cout << "LEVEL UP!!!!!!!!!!!!!" << endl;
-				ColorPicker(47);
+				ColorPicker(7855);
 				cout << "Pick a stat you want to upgrade." << endl;
-				ColorPicker(57);
+				ColorPicker(7855);
 				cout << "press 1 to increase your maximum HP\npress 2 to increase your maximum MANA\npress 3 to increase your dexterity\npress 4 to increase your luck" << endl;
 				ColorPicker(15);
 

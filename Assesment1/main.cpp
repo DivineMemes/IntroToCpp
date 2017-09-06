@@ -14,26 +14,27 @@ int main()
 {
 	srand(time(0));
 	//Order of stat's: HP, MANA, DEXTERITY, LUCK, MAX HP, Max Mana
-	Entity Player = { 200, 150, 25, 10, 200, 150 };
+	Entity Player = { 100, 150, 6, 10, 100, 150 };
 
-	Entity Enemy = { 100, 100, 20, 3, 100, 100 };
+	Entity Enemy = { 100, 150, 5, 3, 100, 100 };
 	int input = 0;
 	
 	bool returnToMenu = false;
-	ColorPicker(15);
-	cout << "#     #                                  ######                                   " << endl;
+	//ascii art from http://www.ascii-art-generator.org/
+	ColorPicker(752);
+	cout << "#     #                                  ######                                                                                                                " << endl;
 	Sleep(500);
-	cout << "#  #  # # ######   ##   #####  #####     #     #   ##   ##### ##### #      ##### " << endl;
+	cout << "#  #  # # ######   ##   #####  #####     #     #   ##   ##### ##### #      #####                                                                               " << endl;
 	Sleep(500);
-	cout << "#  #  # #     #   #  #  #    # #    #    #     #  #  #    #     #   #      #      " << endl;
+	cout << "#  #  # #     #   #  #  #    # #    #    #     #  #  #    #     #   #      #                                                                                   " << endl;
 	Sleep(500);
-	cout << "#  #  # #    #   #    # #    # #    #    ######  #    #   #     #   #      #####  " << endl;
+	cout << "#  #  # #    #   #    # #    # #    #    ######  #    #   #     #   #      #####                                                                               " << endl;
 	Sleep(500);
-	cout << "#  #  # #   #    ###### #####  #    #    #     # ######   #     #   #      #      " << endl;
+	cout << "#  #  # #   #    ###### #####  #    #    #     # ######   #     #   #      #                                                                                   " << endl;
 	Sleep(500);
-	cout << "#  #  # #  #     #    # #   #  #    #    #     # #    #   #     #   #      #      " << endl;
+	cout << "#  #  # #  #     #    # #   #  #    #    #     # #    #   #     #   #      #                                                                                   " << endl;
 	Sleep(500);
-	cout << " ## ##  # ###### #    # #    # #####     ######  #    #   #     #   ###### ##### " << endl;
+	cout << " ## ##  # ###### #    # #    # #####     ######  #    #   #     #   ###### #####                                                                               " << endl;
 	ColorPicker(15);
 
 	
